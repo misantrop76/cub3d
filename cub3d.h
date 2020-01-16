@@ -6,7 +6,7 @@
 /*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/18 18:02:01 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/08 16:38:18 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/16 15:48:05 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,13 +21,30 @@
 
 int		get_next_line(int fd, char **line);
 
+
+typedef struct	s_tex
+{
+	void		*img;
+	int			*data; 									
+	int			size_l;
+	int			bpp;
+	int			endian;
+	int			texX;
+	int			texY;
+}				t_tex;
+
 typedef struct	s_img
 {
 	void		*img_ptr;
 	int			*data; 									
 	int			size_l;
 	int			bpp;
-	int			endian;	
+	int			endian;
+	void		*map_ptr;
+	int			*mapdata; 									
+	int			mapsize_l;
+	int			mapbpp;
+	int			mapendian;	
 }				t_img;
 
 typedef struct s_s
@@ -69,12 +86,25 @@ typedef struct s_s
 	double		walldist;
 	double		x_olddir;
 	double		x_oldplane;
+	double		x_wall;
+	int			x_text;
+	int			y_text;
 	int			move_up;
 	int			move_down;
 	int			move_left;
 	int			move_right;
 	double		ms;
+	double		rs;
+	int			mvback;
+	int			check;
+	int			mapsize;
+	char		*texNO;
+	char		*texWE;
+	char		*texEA;
+	char		*texSO;
+
 	t_img	img;
+	t_tex 	tex[6];
 }				t_s;
 
 #endif
