@@ -6,7 +6,7 @@
 /*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/18 18:02:01 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/16 15:48:05 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/26 21:16:14 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,24 @@ typedef struct	s_tex
 	int			texX;
 	int			texY;
 }				t_tex;
+
+typedef struct	s_sprite
+{
+	double		x;
+	double		y;
+	double		dist;
+	int			a;
+	int 		b;
+	double		X;
+	double		Y;
+	double		v;
+	double		vx;
+	double		vy;
+	int			size;
+	int 		spritex;
+	int *test;
+
+}				t_sprite;
 
 typedef struct	s_img
 {
@@ -102,6 +120,10 @@ typedef struct s_s
 	char		*texWE;
 	char		*texEA;
 	char		*texSO;
+	int			turn_left;
+	int			turn_right;
+	int			nb_sprite;
+	t_sprite 	*sprite;
 
 	t_img	img;
 	t_tex 	tex[6];
