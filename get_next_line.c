@@ -6,13 +6,12 @@
 /*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/06 16:12:29 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2019/12/18 19:06:46 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/27 16:38:43 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "cub3d.h"
 
 char	*ft_strdel(char *str)
 {

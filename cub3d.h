@@ -6,7 +6,7 @@
 /*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/18 18:02:01 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/26 21:16:14 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/27 17:12:06 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <fcntl.h>
 # include <math.h>
+# include "libft/libft.h"
+# include "mlx/mlx.h"
 
 int		get_next_line(int fd, char **line);
 
@@ -128,5 +130,15 @@ typedef struct s_s
 	t_img	img;
 	t_tex 	tex[6];
 }				t_s;
+
+int	ft_parse(char *av, t_s *s);
+int		key_release(int key, t_s *s);
+int  ft_exit(int key, t_s *s);
+int		key(int key, t_s *s);
+int		move(t_s *s);
+int	ray_casting(t_s *s);
+int 	draw_map(t_s *s);
+void	draw_wall(int x, int start, int end, t_s *s);
+void	ft_sprite(t_s *s);
 
 #endif
