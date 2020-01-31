@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ray_casting.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:54:36 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 17:11:40 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/29 14:42:23 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,7 +44,6 @@ void	get_dist_init(t_s *s)
 void	get_dist(t_s *s, int x)
 {
 	int a = 0;
-	int b = 0;
 
 	s->hit = 0;
 
@@ -104,7 +103,6 @@ int	ray_casting(t_s *s)
 {
 	int x;
 	int a;
-	int *sort;
 
 	x = 0;
 	s->img.img_ptr = mlx_new_image(s->mlx_ptr, s->WinX, s->WinY);

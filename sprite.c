@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   sprite.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 17:06:37 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 17:12:35 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 21:59:30 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,7 +77,7 @@ void	ft_sprite(t_s *s)
 		s->sprite[a].vx = s->sprite[a].v * (-s->dirY * s->sprite[a].X - -s->dirX * s->sprite[a].Y);
 		s->sprite[a].vy = s->sprite[a].v * (-s->y_plane * s->sprite[a].X  + s->x_plane * s->sprite[a].Y);
 		s->sprite[a].dist = sqrt(pow(s->sprite[a].X, 2.0) + pow(s->sprite[a].Y,2.0));
-		s->sprite[a].a = (int)(s->WinX / 2 * (1 + s->sprite[a].vx / s->sprite[a].vy)) - (s->WinX / 3 / s->sprite[a].dist);
+		s->sprite[a].a = (int)(s->WinX / 2 * (1 + s->sprite[a].vx / s->sprite[a].vy)) - (s->WinX / 2.5 / s->sprite[a].dist);
 		s->sprite[a].size = (int)(s->WinY / s->sprite[a].dist);
 		s->sprite[a].b = (s->WinY / 2) - (s->sprite[a].size / 2);
 		a++;

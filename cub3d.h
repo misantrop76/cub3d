@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   cub3d.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/18 18:02:01 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 17:12:06 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/31 15:14:16 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,7 @@ typedef struct	s_tex
 	int			endian;
 	int			texX;
 	int			texY;
+	char		*path;
 }				t_tex;
 
 typedef struct	s_sprite
@@ -118,14 +119,20 @@ typedef struct s_s
 	int			mvback;
 	int			check;
 	int			mapsize;
-	char		*texNO;
-	char		*texWE;
-	char		*texEA;
-	char		*texSO;
 	int			turn_left;
 	int			turn_right;
 	int			nb_sprite;
+	int 		sky_color;
+	int			floor_color;
 	t_sprite 	*sprite;
+	unsigned short int NO;
+	unsigned short int SO;
+	unsigned short int EA;
+	unsigned short int WE;
+	unsigned short int S;
+	unsigned short int F;
+	unsigned short int C;
+	unsigned short int R;
 
 	t_img	img;
 	t_tex 	tex[6];
@@ -133,12 +140,13 @@ typedef struct s_s
 
 int	ft_parse(char *av, t_s *s);
 int		key_release(int key, t_s *s);
-int  ft_exit(int key, t_s *s);
+int  ft_exit(void);
 int		key(int key, t_s *s);
 int		move(t_s *s);
 int	ray_casting(t_s *s);
 int 	draw_map(t_s *s);
 void	draw_wall(int x, int start, int end, t_s *s);
 void	ft_sprite(t_s *s);
+int		ft_error(char *str);
 
 #endif

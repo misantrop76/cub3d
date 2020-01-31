@@ -3,15 +3,41 @@
 /*                                                              /             */
 /*   parse.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:21:20 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 16:48:44 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/31 23:16:46 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		ft_get_color(char *str)
+{
+	int i;
+	int R;
+	int G;
+	int B;
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	R = ft_atoi(str + i);
+	while (ft_isdigit(str[i]))
+		i++;
+	while (!ft_isdigit(str[i]) && str[i])
+		i++;
+	G = ft_atoi(str + i);
+	while (ft_isdigit(str[i]))
+		i++;
+	while (!ft_isdigit(str[i]) && str[i])
+		i++;
+	B = ft_atoi(str + i);
+	if (R > 255 || G > 255 || B > 255)
+		ft_error("ERROR WITH COLORS");
+	i = R * 65536 + G * 256 + B;
+	return (i);
+}
 
 int		ft_countnbr(char *str)
 {
@@ -75,7 +101,6 @@ int ft_check_line(char *str, t_s *s)
 
 	i = 0;
 	len = 0;
-
 	while (str[i] == ' ')
 		i++;
 	if (str[i] != '1')
@@ -113,7 +138,6 @@ int ft_check_line(char *str, t_s *s)
 int ft_check_map(int fd, t_s *s)
 {
 	char *line;
-	int i;
 
 	line = NULL;
 	s->MapY = 0;
@@ -153,11 +177,14 @@ int	ft_parse(char *av, t_s *s)
 	j = 0;
 	i = 0;
 	line = NULL;
-	fd = open(av, O_RDONLY);
+	
+	if (!(fd = open(av, O_RDONLY)))
+		return(0);
 	if (!(ft_check_map(fd, &*s)))
-		return (0);
+		return (ft_error("map"));
 	close(fd);
-	fd = open(av, O_RDONLY);
+	if(!(fd = open(av, O_RDONLY)))
+		return (0);
 	while (get_next_line(fd, &line))
 	{
 		if (line[0] == 'R')
@@ -167,34 +194,65 @@ int	ft_parse(char *av, t_s *s)
 			while (ft_isdigit(line[i]))
 				i++;
 			s->WinY = ft_atoi(line + i);
+			s->R++;
 		}
-		if (line[0] == 'N' && line[1] == 'O')
+		else if (line[0] == 'N' && line[1] == 'O')
 		{
 			i += 2;
 			while (line[i] == ' ')
 				i++;
-			s->texNO = ft_strdup(line + i);
+			s->tex[4].path = ft_strdup(line + i);
+			s->NO++;
 		}
-		if (line[0] == 'E' && line[1] == 'A')
+		else if (line[0] == 'E' && line[1] == 'A')
 		{
 			i += 2;
 			while (line[i] == ' ')
 				i++;
-			s->texEA = ft_strdup(line + i);
+			s->tex[3].path = ft_strdup(line + i);
+			s->EA++;
 		}
-		if (line[0] == 'S' && line[1] == 'O')
+		else if (line[0] == 'S' && line[1] == 'O')
 		{
 			i += 2;
 			while (line[i] == ' ')
 				i++;
-			s->texSO = ft_strdup(line + i);
+			s->tex[2].path = ft_strdup(line + i);
+			s->SO++;
 		}
-		if (line[0] == 'W' && line[1] == 'E')
+		else if (line[0] == 'W' && line[1] == 'E')
 		{
 			i += 2;
 			while (line[i] == ' ')
 				i++;
-			s->texWE = ft_strdup(line + i);
+			s->tex[1].path = ft_strdup(line + i);
+			s->WE++;
+		}
+		else if (line[0] == 'C')
+		{
+			i += 2;
+			while (line[i] == ' ')
+				i++;
+			s->tex[0].path = ft_strdup("");
+			if (ft_isdigit(line[i]))
+				s->sky_color = ft_get_color(line + i);
+			else
+				s->tex[0].path = ft_strdup(line + i);
+			s->C++;
+		}
+		else if (line[0] == 'S')
+		{
+			i += 2;
+			while (line[i] == ' ')
+				i++;
+			s->tex[5].path = ft_strdup(line + i);
+			s->S++;
+		}
+		else if (line[0] == 'F')
+		{
+			i++;
+			s->floor_color = ft_get_color(line + i);
+			s->F++;
 		}
 		i = 0;
 		if (ft_isdigit(line[0]))
@@ -206,14 +264,14 @@ int	ft_parse(char *av, t_s *s)
 			while (i < s->MapY)
 			{
 				if (!(s->map[i] = malloc(sizeof(int) * s->MapX)))
-					return (0);
+					return (ft_error(0));
 				i++;
 			}
 			i = 0;
 			k = 0;
-			while (i != s->MapY)
+			while (i < s->MapY)
 			{
-				while (j != s->MapX)
+				while (j < s->MapX && line[k])
 				{
 					if (line[k] >= '0' && line[k] <= '9')
 					{
@@ -250,12 +308,13 @@ int	ft_parse(char *av, t_s *s)
 	j = 0;
 	while (j < s->MapX)
 		if (s->map[i][j++] != 1)
-			return (0);
+			return (ft_error("map"));
 	close(fd);
 	if (s->WinX > 2560)
 		s->WinX = 2560;
 	if (s->WinY > 1440)
-		s->WinY = 1440;
+		s->WinY = 1395;
+	if (s->SO != 1 || s->WE != 1 || s->NO != 1 || s->EA != 1 || s->S != 1 || s->R !=1 || s->C !=1 || s->F != 1)
+		return (ft_error("param"));
 	return (1);
-
 }

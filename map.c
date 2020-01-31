@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   map.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:59:15 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 16:59:33 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/30 15:59:18 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,15 +22,7 @@ int 	draw_map(t_s *s)
 
 	x = s->mapsize / 2;
 	y = s->mapsize / 2;
-	s->img.mapdata[y * s->mapsize + x] = 0xFF0000;
-	s->img.mapdata[(y - 1) * s->mapsize + (x - 1)] = 0xFF0000;
-	s->img.mapdata[(y - 1) * s->mapsize + x] = 0xFF0000;
-	s->img.mapdata[(y - 1) * s->mapsize + (x + 1)] = 0xFF0000;
-	s->img.mapdata[y * s->mapsize + (x - 1)] = 0xFF0000;
-	s->img.mapdata[y * s->mapsize + (x + 1)] = 0xFF0000;
-	s->img.mapdata[(y + 1) * s->mapsize + (x - 1)] = 0xFF0000;
-	s->img.mapdata[(y + 1) * s->mapsize + x] = 0xFF0000;
-	s->img.mapdata[(y + 1) * s->mapsize + (x + 1)] = 0xFF0000;
+
 
 	x = 0;
 	y = 0;
@@ -65,6 +57,20 @@ int 	draw_map(t_s *s)
 		y++;
 		x = 0;
 	}
+
+	i = s->PosY - 10;
+	j = s->PosX - 10;
+	x = s->mapsize / 2;
+	y = s->mapsize / 2;
+	s->img.mapdata[y * s->mapsize + x] = 0xFF0000;
+	s->img.mapdata[(y - 1) * s->mapsize + (x - 1)] = 0xFF0000;
+	s->img.mapdata[(y - 1) * s->mapsize + x] = 0xFF0000;
+	s->img.mapdata[(y - 1) * s->mapsize + (x + 1)] = 0xFF0000;
+	s->img.mapdata[y * s->mapsize + (x - 1)] = 0xFF0000;
+	s->img.mapdata[y * s->mapsize + (x + 1)] = 0xFF0000;
+	s->img.mapdata[(y + 1) * s->mapsize + (x - 1)] = 0xFF0000;
+	s->img.mapdata[(y + 1) * s->mapsize + x] = 0xFF0000;
+	s->img.mapdata[(y + 1) * s->mapsize + (x + 1)] = 0xFF0000;
 	return (0);
 
 }

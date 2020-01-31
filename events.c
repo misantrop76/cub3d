@@ -3,18 +3,19 @@
 /*                                                              /             */
 /*   events.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
+/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:42:09 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/27 16:47:18 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/29 14:41:28 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int  ft_exit(int key, t_s *s)
+int  ft_exit(void)
 {
+	
 	exit(0);
 }
 
@@ -39,7 +40,6 @@ int		key_release(int key, t_s *s)
 
 int		key(int key, t_s *s)
 {
-	int x = 0;
 	if (key == 53)
 		exit(0);
 	if (key == 13)
