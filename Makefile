@@ -6,7 +6,7 @@
 #    By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2020/01/30 19:33:08 by mminet       #+#   ##    ##    #+#        #
-#    Updated: 2020/01/31 18:25:19 by mminet      ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/03 03:20:42 by mminet      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,13 +17,14 @@ LIBFT = ./libft/libft.a
 LIBFT_SRC := $(wildcard libft/*.c)
 LIBFT_OBJ := $(patsubst libft/%.c, libft/%.o, $(LIBFT_SRC))
 
-FLAGS = gcc -Wall -Wextra -Werror -g3
+FLAGS = gcc -g3
 INCLUDES = -L mlx/ -lmlx -framework OpenGL -framework AppKit
 
 SRC := $(wildcard *.c)
 OBJ := $(patsubst %.c, obj/%.o, $(SRC))
 
 MLX = ./mlx/libmlx.a
+HEADERS = cub3d.h
 
 all: $(NAME)
 

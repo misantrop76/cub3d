@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/31 14:06:21 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/31 22:51:31 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/03 02:21:10 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,25 +17,25 @@ int		ft_init(t_s *s)
 {
 	s->ms = 0.1;
 	s->rs = 0.07;
-	s->mapsize = s->WinX / 5;
-	if (s->WinX > s->WinY)
-		s->mapsize = s->WinY / 5;
+	s->mapsize = s->winx / 5;
+	if (s->winx > s->winy)
+		s->mapsize = s->winy / 5;
 	s->mlx_ptr = mlx_init();
-	s->win_ptr = mlx_new_window(s->mlx_ptr, s->WinX, s->WinY, "cub3d");
+	s->win_ptr = mlx_new_window(s->mlx_ptr, s->winx, s->winy, "cub3d");
 	if (s->tex[0].path[0] == '\0')
 		s->i++;
 	while (s->i < 6)
 	{
 		if (!(s->tex[s->i].img = mlx_xpm_file_to_image(s->mlx_ptr,
-		s->tex[s->i].path, &s->tex[s->i].texX, &s->tex[s->i].texY)))
-			return (ft_error("path"));
+		s->tex[s->i].path, &s->tex[s->i].texx, &s->tex[s->i].texy)))
+			return (ft_error(s->tex[s->i].path));
 		s->tex[s->i].data = (int *)mlx_get_data_addr(s->tex[s->i].img,
 		&s->tex[s->i].bpp, &s->tex[s->i].size_l, &s->tex[s->i].endian);
 		s->i++;
 	}
 	s->i = 0;
 	while (s->i < s->nb_sprite)
-		if (!(s->sprite[s->i++].test = malloc(sizeof(int) * s->WinX)))
+		if (!(s->sprite[s->i++].test = malloc(sizeof(int) * s->winx)))
 			return (0);
 	return (1);
 }
@@ -45,19 +45,19 @@ int		ft_error(char *str)
 	int len;
 
 	len = ft_strlen(str);
-	if (ft_strncmp(str, "usage", len) == 0)
+	if (ft_strncmp(str, "usage", 6) == 0)
 	{
 		ft_putstr_fd("ERROR USAGE:\n\n		./Cub3d file.cub\n", 1);
 		ft_putstr_fd("flags : -save\n\n\n", 1);
 	}
-	else if (ft_strncmp(str, "param", len) == 0)
+	else if (ft_strncmp(str, "param", 6) == 0)
 		ft_putstr_fd("\nERROR WITH SETTINGS\n\n", 1);
-	else if (ft_strncmp(str, "path", len) == 0)
+	else if (ft_strncmp(str, "path", 5) == 0)
 	{
 		ft_putstr_fd("\nERROR FAIL TO LOAD TEXTURE\n\n", 1);
 		ft_putstr_fd("CHECK THE PATH TEXTURE\n\n", 1);
 	}
-	else if (ft_strncmp(str, "map", len) == 0)
+	else if (ft_strncmp(str, "map", 4) == 0)
 	{
 		ft_putstr_fd("\nERROR WITH MAP 		EXAMPLE:\n\n", 1);
 		ft_putstr_fd("1 1 1 1 1\n1 0 0 0 1\n1 2 0 2 1", 1);
@@ -71,24 +71,24 @@ int		ft_error(char *str)
 
 void	ft_get_dir(t_s *s)
 {
-	if (s->Bdir == 'N')
+	if (s->bdir == 'N')
 	{
-		s->dirY = -1;
+		s->diry = -1;
 		s->x_plane = -0.66;
 	}
-	if (s->Bdir == 'S')
+	if (s->bdir == 'S')
 	{
-		s->dirY = 1;
+		s->diry = 1;
 		s->x_plane = 0.66;
 	}
-	if (s->Bdir == 'E')
+	if (s->bdir == 'E')
 	{
-		s->dirX = 1;
+		s->dirx = 1;
 		s->y_plane = -0.66;
 	}
-	if (s->Bdir == 'W')
+	if (s->bdir == 'W')
 	{
-		s->dirX = -1;
+		s->dirx = -1;
 		s->y_plane = 0.66;
 	}
 }
@@ -107,8 +107,10 @@ int		main(int ac, char **av)
 		return (0);
 	mlx_hook(s.win_ptr, 2, 0, key, &s);
 	mlx_hook(s.win_ptr, 3, 0, key_release, &s);
-	mlx_hook(s.win_ptr, 17, 0, ft_exit, &s);
+	mlx_hook(s.win_ptr, 17, 0, ft_error, "");
 	ray_casting(&s);
+	if (ac == 3)
+		save_bmp_file(&s);
 	mlx_loop_hook(s.mlx_ptr, move, &s);
 	mlx_loop(s.mlx_ptr);
 	return (0);

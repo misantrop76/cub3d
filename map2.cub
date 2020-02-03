@@ -6,12 +6,11 @@ WE textures/redbrick.xpm
 SO textures/wood.xpm
 
 F 50 50 50
-H 50 50 255
 C textures/sky.xpm
 S textures/barrel.xpm
 
-1 1 1 1 1
-1 0 0 0 1
-1 2 0 2 1
-1 0 0 N 1
-1 1 1 1 1
+11111
+10001
+12021
+100N1
+11111

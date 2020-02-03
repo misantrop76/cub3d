@@ -6,18 +6,12 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:42:09 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/29 14:41:28 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/01 17:29:55 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int  ft_exit(void)
-{
-	
-	exit(0);
-}
 
 int		key_release(int key, t_s *s)
 {
@@ -41,7 +35,7 @@ int		key_release(int key, t_s *s)
 int		key(int key, t_s *s)
 {
 	if (key == 53)
-		exit(0);
+		ft_error("");
 	if (key == 13)
 		s->move_up = 1;
 	else if (key == 1)
