@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:54:36 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/02 16:23:59 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 16:05:15 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,12 +41,24 @@ void	get_dist_init(t_s *s)
 	}
 }
 
+void	get_dist2(t_s *s, int a, int x)
+{
+	if (s->map[s->y_map][s->x_map] == 2)
+	{
+		while (++a < s->nb_sprite)
+			if ((int)(s->sprite[a].x - 0.5) == s->x_map && (int)(s->sprite
+			[a].y - 0.5) == s->y_map)
+				break ;
+		s->sprite[a].test[x] = 1;
+		s->sprite[a].spritex = 1;
+	}
+}
+
 void	get_dist(t_s *s, int x)
 {
-	int a = 0;
+	int a;
 
 	s->hit = 0;
-
 	while (s->hit == 0)
 	{
 		if (s->x_sidedist < s->y_sidedist)
@@ -63,24 +75,13 @@ void	get_dist(t_s *s, int x)
 		}
 		if (s->map[s->y_map][s->x_map] == 1)
 			s->hit = 1;
-		a = 0;
-		if (s->map[s->y_map][s->x_map] == 2)
-		{
-			while (a < s->nb_sprite)
-			{
-				if ((int)(s->sprite[a].x - 0.5) == s->x_map && (int)(s->sprite[a].y - 0.5) == s->y_map)
-					break;
-				a++;
-			}
-			s->sprite[a].test[x] = 1;
-			s->sprite[a].spritex = 1;
-		}
+		a = -1;
+		get_dist2(s, a, x);
 	}
 }
 
 void	ray_casting_init(t_s *s, int x)
 {
-
 	s->x_cam = (2 * x / (double)(s->winx)) - 1;
 	s->x_raypos = s->posx;
 	s->y_raypos = s->posy;
@@ -96,66 +97,25 @@ void	ray_casting_init(t_s *s, int x)
 	else
 		s->walldist = (s->y_map - s->y_raypos +
 				(1 - s->y_step) / 2) / s->y_raydir;
-
 }
 
-int	ray_casting(t_s *s)
+int		ray_casting(t_s *s)
 {
 	int x;
 	int a;
 
 	x = 0;
 	s->img.img_ptr = mlx_new_image(s->mlx_ptr, s->winx, s->winy);
-	s->img.data = (int *)mlx_get_data_addr(s->img.img_ptr, &s->img.bpp, &s->img.size_l, &s->img.endian);
+	s->img.data = (int *)mlx_get_data_addr(s->img.img_ptr, &s->img.bpp,
+	&s->img.size_l, &s->img.endian);
 	s->img.map_ptr = mlx_new_image(s->mlx_ptr, s->mapsize, s->mapsize);
-	s->img.mapdata = (int *)mlx_get_data_addr(s->img.map_ptr, &s->img.mapbpp, &s->img.mapsize_l, &s->img.mapendian);
+	s->img.mapdata = (int *)mlx_get_data_addr(s->img.map_ptr,
+	&s->img.mapbpp, &s->img.mapsize_l, &s->img.mapendian);
 	draw_map(&*s);
 	a = 0;
 	while (a < s->nb_sprite)
 		s->sprite[a++].spritex = 0;
-	if (s->turn_right == 1)
-		s->mvback += 50;
-	if (s->turn_left == 1)
-		s->mvback -= 50;
-	if (s->mvback + x > 3000)
-		s->mvback = 0;
-	if (s->mvback + x < 0)
-		s->mvback = 3000 - x;
-	while (x < s->winx)
-	{
-		ray_casting_init(&*s, x);
-		s->lineheight = (int)(s->winy / s->walldist);
-		s->start = -s->lineheight / 2 + s->winy / 2;
-		if (s->start < 0)
-			s->start = 0;
-		s->end = s->lineheight / 2 + s->winy / 2;
-		if (s->end >= s->winy)
-			s->end = s->winy - 1;
-		if (s->side == 1)
-			s->color = 0x2D27E1;
-		else
-			s->color = 0x546AF7;
-		draw_wall(x, s->start - 1, s->end, &*s);
-		x++;
-	}
-	x = 0;
-	a = 0;
-	ft_sprite(&*s);
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img.img_ptr, 0, 0);
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img.map_ptr, 0 + 5, s->winy - s->mapsize - 5);
-	mlx_destroy_image(s->mlx_ptr, s->img.img_ptr);
-	mlx_destroy_image(s->mlx_ptr, s->img.map_ptr);
-	a = 0;
-	x = 0;
-	while (a < s->nb_sprite)
-	{
-		while (x < s->winx)
-		{
-			s->sprite[a].test[x] = 0;
-			x++;
-		}
-		x = 0;
-		a++;
-	}
+	ray_casting2(s, a, x);
+	ray_casting3(s, a, x);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:21:20 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/02 16:23:24 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 17:48:04 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,38 +16,41 @@
 int		ft_get_color(char *str)
 {
 	int i;
-	int R;
-	int G;
-	int B;
+	int r;
+	int g;
+	int b;
+
 	i = 0;
 	while (str[i] == ' ')
 		i++;
-	R = ft_atoi(str + i);
+	r = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
 	while (!ft_isdigit(str[i]) && str[i])
 		i++;
-	G = ft_atoi(str + i);
+	g = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
 	while (!ft_isdigit(str[i]) && str[i])
 		i++;
-	B = ft_atoi(str + i);
-	if (R > 255 || G > 255 || B > 255)
+	if (!ft_isdigit(str[i]))
+	ft_error("ERROR WITH COLORS");
+	b = ft_atoi(str + i);
+	if (r > 255 || g > 255 || b > 255)
 		ft_error("ERROR WITH COLORS");
-	i = R * 65536 + G * 256 + B;
+	i = r * 65536 + g * 256 + b;
 	return (i);
 }
 
-int get_nbr_line(char *av, t_s *s)
+int		get_nbr_line(char *av, t_s *s)
 {
-	int fd;
-	char *line;
-	int nb;
+	int		fd;
+	char	*line;
+	int		nb;
 
 	nb = 0;
 	line = NULL;
-	if (!(fd = open(av, O_RDONLY)))
+	if (!(fd = open(av, O_RDONLY)) || fd < 0)
 		ft_error("usage");
 	while (get_next_line(fd, &line))
 	{
@@ -73,13 +76,9 @@ void	get_map_info(t_s *s, int a)
 	j = 0;
 	s->mapx = ft_strlen(s->str[a]);
 	while (s->str[a][i])
-	{
 		if (s->str[a][i++] != '1')
 			ft_error("map");
-	}
-	s->mapy++;
-	a++;
-	while (s->str[a] != 0)
+	while ((s->mapy += 1) && s->str[++a] != 0)
 	{
 		i = 0;
 		if ((int)ft_strlen(s->str[a]) != s->mapx)
@@ -87,12 +86,8 @@ void	get_map_info(t_s *s, int a)
 		if (s->str[a][0] != '1' || s->str[a][s->mapx - 1] != '1')
 			ft_error("map");
 		while (s->str[a][i])
-		{
 			if (s->str[a][i++] == '2')
 				s->nb_sprite++;
-		}
-		a++;
-		s->mapy++;
 	}
 	a--;
 	i = 0;
@@ -137,7 +132,8 @@ void	ft_parse_map(t_s *s, int a)
 					sp++;
 				}
 			}
-			else if (s->str[a][j] == 'N' || s->str[a][j] == 'S' || s->str[a][j] == 'W' || s->str[a][j] == 'E')
+			else if (s->str[a][j] == 'N' || s->str[a][j] == 'S' ||
+			s->str[a][j] == 'W' || s->str[a][j] == 'E')
 			{
 				s->map[i][j] = 0;
 				s->posx = (double)j + 0.5;
@@ -151,13 +147,12 @@ void	ft_parse_map(t_s *s, int a)
 		i++;
 		a++;
 	}
-
 }
 
 void	ft_parse_param(t_s *s)
 {
-	s->i = 0;
 	int i;
+
 	s->i = 0;
 	while (!ft_isdigit(s->str[s->i][0]) && s->str[s->i] != 0)
 	{
@@ -169,7 +164,7 @@ void	ft_parse_param(t_s *s)
 			while (ft_isdigit(s->str[s->i][i]))
 				i++;
 			s->winy = ft_atoi(s->str[s->i] + i);
-			s->R++;
+			s->r++;
 		}
 		else if (s->str[s->i][0] == 'N' && s->str[s->i][1] == 'O')
 		{
@@ -177,7 +172,7 @@ void	ft_parse_param(t_s *s)
 			while (s->str[s->i][i] == ' ')
 				i++;
 			s->tex[4].path = ft_strdup(s->str[s->i] + i);
-			s->NO++;
+			s->no++;
 		}
 		else if (s->str[s->i][0] == 'E' && s->str[s->i][1] == 'A')
 		{
@@ -185,7 +180,7 @@ void	ft_parse_param(t_s *s)
 			while (s->str[s->i][i] == ' ')
 				i++;
 			s->tex[3].path = ft_strdup(s->str[s->i] + i);
-			s->EA++;
+			s->ea++;
 		}
 		else if (s->str[s->i][0] == 'S' && s->str[s->i][1] == 'O')
 		{
@@ -193,7 +188,7 @@ void	ft_parse_param(t_s *s)
 			while (s->str[s->i][i] == ' ')
 				i++;
 			s->tex[2].path = ft_strdup(s->str[s->i] + i);
-			s->SO++;
+			s->so++;
 		}
 		else if (s->str[s->i][0] == 'W' && s->str[s->i][1] == 'E')
 		{
@@ -201,7 +196,7 @@ void	ft_parse_param(t_s *s)
 			while (s->str[s->i][i] == ' ')
 				i++;
 			s->tex[1].path = ft_strdup(s->str[s->i] + i);
-			s->WE++;
+			s->we++;
 		}
 		else if (s->str[s->i][0] == 'C')
 		{
@@ -213,7 +208,7 @@ void	ft_parse_param(t_s *s)
 				s->sky_color = ft_get_color(s->str[s->i] + i);
 			else
 				s->tex[0].path = ft_strdup(s->str[s->i] + i);
-			s->C++;
+			s->c++;
 		}
 		else if (s->str[s->i][0] == 'S')
 		{
@@ -221,13 +216,13 @@ void	ft_parse_param(t_s *s)
 			while (s->str[s->i][i] == ' ')
 				i++;
 			s->tex[5].path = ft_strdup(s->str[s->i] + i);
-			s->S++;
+			s->s++;
 		}
 		else if (s->str[s->i][0] == 'F')
 		{
 			i++;
 			s->floor_color = ft_get_color(s->str[s->i] + i);
-			s->F++;
+			s->f++;
 		}
 		else if (s->str[s->i][0] != '\0')
 			ft_error("param");
@@ -237,7 +232,8 @@ void	ft_parse_param(t_s *s)
 		s->winx = 2560;
 	if (s->winy > 1440)
 		s->winy = 1395;
-	if (s->SO != 1 || s->WE != 1 || s->NO != 1 || s->EA != 1 || s->S != 1 || s->R !=1 || s->C !=1 || s->F != 1)
+	if (s->so != 1 || s->we != 1 || s->no != 1 || s->ea != 1 || s->s != 1
+	|| s->r != 1 || s->c != 1 || s->f != 1 || s->winx < 0 || s->winy < 0)
 		ft_error("param");
 	if (ft_isdigit(s->str[s->i][0]))
 		ft_parse_map(&*s, s->i);
@@ -245,17 +241,17 @@ void	ft_parse_param(t_s *s)
 		ft_error("map");
 }
 
-int	ft_parse(char *av, t_s *s)
+int		ft_parse(char *av, t_s *s)
 {
-	int fd;
-	char *line;
-	int i;
+	int		fd;
+	char	*line;
+	int		i;
 
 	i = 0;
 	line = NULL;
 	get_nbr_line(av, &*s);
 	if (!(fd = open(av, O_RDONLY)))
-		return(0);
+		ft_error("USAGE");
 	while (get_next_line(fd, &line))
 	{
 		s->str[i] = ft_strdup(line);

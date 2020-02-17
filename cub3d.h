@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/12/18 18:02:01 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/03 00:38:52 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 16:55:12 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,7 @@
 # include <math.h>
 # include "libft/libft.h"
 # include "mlx/mlx.h"
+# include <stdio.h>
 
 typedef struct	s_tex
 {
@@ -64,6 +65,17 @@ typedef struct	s_img
 	int			mapbpp;
 	int			mapendian;
 }				t_img;
+
+typedef struct	s_bmp
+{
+	int				size;
+	char			*img;
+	unsigned char	header[14];
+	unsigned char	info[40];
+	unsigned char	pad[3];
+	int				color;
+	int				fd;
+}				t_bmp;
 
 typedef struct	s_s
 {
@@ -122,15 +134,15 @@ typedef struct	s_s
 	int					nb_sprite;
 	int					sky_color;
 	int					floor_color;
-	unsigned short int	NO;
-	unsigned short int	SO;
-	unsigned short int	EA;
-	unsigned short int	WE;
-	unsigned short int	S;
-	unsigned short int	F;
-	unsigned short int	C;
-	unsigned short int	R;
-	unsigned short int	d;
+	unsigned short int	no;
+	unsigned short int	so;
+	unsigned short int	ea;
+	unsigned short int	we;
+	unsigned short int	s;
+	unsigned short int	f;
+	unsigned short int	c;
+	unsigned short int	r;
+	unsigned short int  d;
 	t_sprite			*sprite;
 	t_img				img;
 	t_tex				tex[6];
@@ -147,6 +159,9 @@ void			draw_map(t_s *s);
 void			draw_wall(int x, int start, int end, t_s *s);
 void			ft_sprite(t_s *s);
 int				ft_error(char *str);
-void            save_bmp_file(t_s *s);
+void			save_bmp_file(t_s *s);
+void			ray_casting2(t_s *s, int a, int x);
+void			ray_casting3(t_s *s, int a, int x);
+void			ray_casting_init(t_s *s, int x);
 
 #endif

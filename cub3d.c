@@ -1,14 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   cub3d.c                                          .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/31 14:06:21 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/03 02:21:10 by mminet      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mminet <mminet@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/17 18:18:35 by mminet            #+#    #+#             */
+/*   Updated: 2020/02/17 18:32:54 by mminet           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
@@ -99,15 +98,17 @@ int		main(int ac, char **av)
 
 	if (ac < 2 || ac > 3 || (ac == 3 && strncmp(av[2], "-save", 6) != 0))
 		return (ft_error("usage"));
+	if (ft_strncmp(av[1] + (ft_strlen(av[1]) - 4), ".cub", 5))
+		ft_error("usage");
 	s.nb_sprite = 0;
 	if (!(ft_parse(av[1], &s)))
 		return (0);
 	ft_get_dir(&s);
 	if (!ft_init(&s))
 		return (0);
+	mlx_hook(s.win_ptr, 17, 0, ft_error, "");
 	mlx_hook(s.win_ptr, 2, 0, key, &s);
 	mlx_hook(s.win_ptr, 3, 0, key_release, &s);
-	mlx_hook(s.win_ptr, 17, 0, ft_error, "");
 	ray_casting(&s);
 	if (ac == 3)
 		save_bmp_file(&s);

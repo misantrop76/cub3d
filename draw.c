@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 17:00:57 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/02 16:25:16 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 02:08:18 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,22 +44,21 @@ void	draw_wall2(t_s *s, int start, int end, int x)
 	int id;
 
 	id = s->i;
+	if (s->walldist < 0)
+		s->walldist = 0;
 	while (start < end)
 	{
 		if (x < s->winx && start < s->winy)
 		{
 			s->y_text = abs((((start * 256 - s->winy * 128 +
 			s->lineheight * 128) * 64) / s->lineheight) / 256);
-			s->img.data[start * s->winx + x] = s->tex[id].data[(s->y_text %
-			64 * s->tex[id].size_l + s->x_text % 64 * s->tex[id].bpp / 8) / 4];
+			s->img.data[start * s->winx + x] = s->tex[id].data[(s->y_text % 64
+			* s->tex[id].size_l + s->x_text % 64 * s->tex[id].bpp / 8) / 4];
 			start++;
 		}
 	}
-	while (end < s->winy - 1)
-	{
+	while (end++ < s->winy - 1)
 		s->img.data[end * s->winx + x] = s->floor_color;
-		end++;
-	}
 }
 
 void	draw_wall(int x, int start, int end, t_s *s)

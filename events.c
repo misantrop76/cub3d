@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:42:09 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/01 17:29:55 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 17:57:38 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ int		key_release(int key, t_s *s)
 		s->move_left = 0;
 	else if (key == 123)
 		s->turn_left = 0;
-	else if (key == 257 || key == 258)
+	else if (key == 49)
 		s->ms = 0.1;
 	return (0);
 }
@@ -48,7 +48,7 @@ int		key(int key, t_s *s)
 		s->move_left = 1;
 	else if (key == 123)
 		s->turn_left = 1;
-	else if (key == 257 || key == 258)
+	else if (key == 49)
 		s->ms = 0.2;
 	return (0);
 }

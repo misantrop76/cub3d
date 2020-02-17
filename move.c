@@ -6,27 +6,12 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:50:33 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/02 16:23:59 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 17:12:14 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int		ft_move_sprite(double posx, double posy, t_s *s)
-{
-	int i;
-
-	i = 0;
-	while (i < s->nb_sprite)
-	{
-		if (fabs(posx - s->sprite[i].x) < 0.49 &&
-		fabs(posy - s->sprite[i].y) < 0.49)
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 void	move_side(t_s *s)
 {
@@ -60,19 +45,19 @@ void	move2(t_s *s)
 	if (s->move_right == 1)
 	{
 		if (s->map[(int)(s->posy)][(int)(s->posx + vx * s->ms * 1.5)]
-		!= 1 && ft_move_sprite(s->posx + vx * s->ms, s->posy, &*s))
+		== 0)
 			s->posx += vx * s->ms;
 		if (s->map[(int)(s->posy + vy * s->ms * 1.5)][(int)(s->posx)]
-		!= 1 && ft_move_sprite(s->posx, s->posy + vy * s->ms, &*s))
+		== 0)
 			s->posy += vy * s->ms;
 	}
 	if (s->move_left == 1)
 	{
 		if (s->map[(int)(s->posy)][(int)(s->posx - vx * s->ms * 1.5)]
-		!= 1 && ft_move_sprite(s->posx - vx * s->ms, s->posy, &*s))
+		== 0)
 			s->posx -= vx * s->ms;
 		if (s->map[(int)(s->posy - vy * s->ms * 1.5)][(int)(s->posx)]
-		!= 1 && ft_move_sprite(s->posx, s->posy - vy * s->ms, &*s))
+		== 0)
 			s->posy -= vy * s->ms;
 	}
 }
@@ -81,24 +66,22 @@ int		move(t_s *s)
 {
 	if (s->move_up == 1)
 	{
-		if (s->map[(int)(s->posy)][(int)(s->posx + s->dirx * s->ms * 1.5)] !=
-		1 && ft_move_sprite(s->posx + s->dirx * s->ms, s->posy, &*s))
+		if (s->map[(int)(s->posy)][(int)(s->posx + s->dirx * s->ms * 1.5)] == 0)
 			s->posx += s->dirx * s->ms;
-		if (s->map[(int)(s->posy + s->diry * s->ms * 1.5)][(int)(s->posx)] !=
-		1 && ft_move_sprite(s->posx, s->posy + s->diry * s->ms, &*s))
+		if (s->map[(int)(s->posy + s->diry * s->ms * 1.5)][(int)(s->posx)] == 0)
 			s->posy += s->diry * s->ms;
 	}
 	if (s->move_down == 1)
 	{
-		if (s->map[(int)(s->posy)][(int)(s->posx - s->dirx * s->ms * 1.5)] !=
-		1 && ft_move_sprite(s->posx - s->dirx * s->ms, s->posy, &*s))
+		if (s->map[(int)(s->posy)][(int)(s->posx - s->dirx * s->ms * 1.5)] == 0)
 			s->posx -= s->dirx * s->ms;
-		if (s->map[(int)(s->posy - s->diry * s->ms * 1.5)][(int)(s->posx)] !=
-		1 && ft_move_sprite(s->posx, s->posy - s->diry * s->ms, &*s))
+		if (s->map[(int)(s->posy - s->diry * s->ms * 1.5)][(int)(s->posx)] == 0)
 			s->posy -= s->diry * s->ms;
 	}
 	move2(&*s);
 	move_side(&*s);
 	ray_casting(&*s);
+	mlx_destroy_image(s->mlx_ptr, s->img.img_ptr);
+	mlx_destroy_image(s->mlx_ptr, s->img.map_ptr);
 	return (0);
 }

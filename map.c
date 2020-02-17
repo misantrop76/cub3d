@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/27 16:59:15 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/02 16:22:51 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 02:38:58 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,8 +64,8 @@ void	draw_map(t_s *s)
 	double	j;
 
 	i = s->posy - 10;
-	y = 0;
-	while (y < s->mapsize)
+	y = -1;
+	while (++y < s->mapsize)
 	{
 		x = 0;
 		j = s->posx - 10.0;
@@ -75,11 +75,12 @@ void	draw_map(t_s *s)
 			(int)j < s->mapx && s->map[(int)i][(int)j] != 0)
 				s->img.mapdata[y * s->mapsize + x] =
 				16777215 / s->map[(int)i][(int)j];
+			else
+				s->img.mapdata[y * s->mapsize + x] = 0;
 			j = j + (20.0 / s->mapsize);
 			x++;
 		}
 		i = i + (20.0 / s->mapsize);
-		y++;
 	}
 	middle_point(&*s);
 }

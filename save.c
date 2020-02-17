@@ -6,118 +6,86 @@
 /*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/03 00:19:06 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/03 03:24:07 by mminet      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/13 01:42:38 by mminet      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void            write_rgb(t_s *s, int height, int width, int fd)
+void		set_header(unsigned char *header, int param)
 {
-    unsigned char    abc[3];
-    int                i_j[2];
-    int                *img_ptr;
-    unsigned char	zero[3];
-    int color;
-    int i = -1;
-    	while (++i < 3)
-		zero[i] = 0;
-    int pad = (4 - (s->winx * 3) %4) % 4;
-    img_ptr = (void*)s->img.img_ptr;
-    i_j[0] = height;
-    int x = 0;
-    int y = 0;
-    while (i_j[0] > 0)
-    {
-        i_j[1] = 0;
-        while (i_j[1] < width)
-        {
-            color = s->img.data[i_j[0] * height + i_j[1]];
-			write(fd, &color, 3);
-            /*
-            abc[0] = (240 & (img_ptr[(height - i_j[0]) * width + i_j[1]]) >> 16);
-            abc[1] = (240 & (img_ptr[(height - i_j[0]) * width + i_j[1]]) >> 8);
-            abc[2] = (240 & img_ptr[(height - i_j[0]) * width + i_j[1]]);
-            write(fd, abc + 2, 1);
-            write(fd, abc + 1, 1);
-            write(fd, abc, 1);*/
-            x++;
-            if (x % 4  == 0)
-                i_j[1] += 4;
-        }
-        if (y % 8 == 0)
-            i_j[0] -= 1;
-    }
+	header[0] = (unsigned char)(param);
+	header[1] = (unsigned char)(param >> 8);
+	header[2] = (unsigned char)(param >> 16);
+	header[3] = (unsigned char)(param >> 24);
 }
-unsigned char    *create_bitmap_file_header(int height, int width, int padding_size)
+
+void		imgbmp(t_s *s, t_bmp *bmp)
 {
-    int                        file_size;
-    printf("%d\n", padding_size);
-    static unsigned char    file_header[] = {
-        0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-    };
-    file_size = 14 + 40 + (3 * width + padding_size) * height;
-    file_header[0] = (unsigned char)('B');
-    file_header[1] = (unsigned char)('M');
-    file_header[2] = (unsigned char)(file_size);
-    file_header[3] = (unsigned char)(file_size >> 8);
-    file_header[4] = (unsigned char)(file_size >> 16);
-    file_header[5] = (unsigned char)(file_size >> 24);
-    file_header[10] = (unsigned char)(14 + 40);
-    return (file_header);
+	int x;
+	int y;
+	int i;
+
+	y = s->winy - 1;
+	while (y >= 0)
+	{
+		x = -1;
+		while (++x < s->winx)
+		{
+			bmp->color = 0;
+			if (x < s->mapsize && y < s->mapsize)
+				bmp->color = s->img.mapdata[y * s->mapsize + x];
+			else
+				bmp->color = s->img.data[y * s->winx + x];
+			write(bmp->fd, &bmp->color, 3);
+		}
+		i = -1;
+		while (++i < (4 - (s->winx * 3) % 4) % 4)
+			write(bmp->fd, &bmp->pad, 1);
+		y--;
+	}
 }
-unsigned char    *create_bitmap_info_header(int height, int width)
+
+void		ft_header(t_s *s, t_bmp *bmp)
 {
-    static unsigned char info_header[] = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    };
-    info_header[0] = (unsigned char)(40);
-    info_header[4] = (unsigned char)(width);
-    info_header[5] = (unsigned char)(width >> 8);
-    info_header[6] = (unsigned char)(width >> 16);
-    info_header[7] = (unsigned char)(width >> 24);
-    info_header[8] = (unsigned char)(height);
-    info_header[9] = (unsigned char)(height >> 8);
-    info_header[10] = (unsigned char)(height >> 16);
-    info_header[11] = (unsigned char)(height >> 24);
-    info_header[12] = (unsigned char)(1);
-    info_header[14] = (unsigned char)(3 * 8);
-    return (info_header);
+	int i;
+
+	i = 0;
+	while (i < 14)
+		bmp->header[i++] = 0;
+	bmp->header[0] = 'B';
+	bmp->header[1] = 'M';
+	bmp->header[10] = 54;
+	i = 0;
+	while (i < 40)
+		bmp->info[i++] = 0;
+	bmp->info[0] = 40;
+	bmp->info[12] = 1;
+	bmp->info[14] = 24;
+	i = 0;
+	while (i < 3)
+		bmp->pad[i++] = 0;
+	set_header(&bmp->header[2], bmp->size);
+	set_header(&bmp->info[4], s->winx);
+	set_header(&bmp->info[8], s->winy);
+	write(bmp->fd, bmp->header, 14);
+	write(bmp->fd, bmp->info, 40);
 }
-void            generate_bitmap_image(t_s *s, int height, int width)
+
+void		save_bmp_file(t_s *s)
 {
-    int                    fd;
-    unsigned char        *file_header;
-    unsigned char        *info_header;
-    file_header = create_bitmap_file_header(height, width, (4 - (width * 3) % 4) % 4);
-    info_header = create_bitmap_info_header(height, width);
-    fd = open("save.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 00700);
-    if (fd < 0)
-    {
-        ft_putstr_fd("Error\n", 1);
-        ft_putstr_fd("Create save.bmp file.", 1);
-        exit(0);
-    }
-    write(fd, file_header, 14);
-    write(fd, info_header, 40);
-    write_rgb(s, height, width, fd);
-    close(fd);
-}
-void            save_bmp_file(t_s *s)
-{
-    int        height;
-    int        width;
-    height = s->winy;
-    if (height % 2 == 1)
-        height -= 1;
-    width = s->winx;
-    if (width % 2 == 1)
-        width -= 1;
-    generate_bitmap_image(s, height, width);
-    exit(0);
+	t_bmp	bmp;
+	int		imgsize;
+
+	imgsize = 3 * s->winx * s->winy;
+	bmp.size = 54 + imgsize;
+	bmp.img = malloc((sizeof(char) * imgsize));
+	ft_memset(bmp.img, 0, imgsize);
+	bmp.fd = open("img.bmp", O_CREAT | O_WRONLY, S_IRWXU);
+	ft_header(s, &bmp);
+	imgbmp(s, &bmp);
+	free(bmp.img);
+	close(bmp.fd);
+	ft_error("");
 }
