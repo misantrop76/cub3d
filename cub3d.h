@@ -1,14 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   cub3d.h                                          .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/12/18 18:02:01 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 16:55:12 by mminet      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/18 21:08:56 by mminet            #+#    #+#             */
+/*   Updated: 2020/02/18 21:55:23 by mminet           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
@@ -20,7 +19,6 @@
 # include <math.h>
 # include "libft/libft.h"
 # include "mlx/mlx.h"
-# include <stdio.h>
 
 typedef struct	s_tex
 {
@@ -142,14 +140,14 @@ typedef struct	s_s
 	unsigned short int	f;
 	unsigned short int	c;
 	unsigned short int	r;
-	unsigned short int  d;
+	unsigned short int	d;
 	t_sprite			*sprite;
 	t_img				img;
 	t_tex				tex[6];
 }				t_s;
 
 int				get_next_line(int fd, char **line);
-int				ft_parse(char *av, t_s *s);
+void			ft_parse(char *av, t_s *s);
 int				key_release(int key, t_s *s);
 int				ft_exit(void);
 int				key(int key, t_s *s);
@@ -157,11 +155,16 @@ int				move(t_s *s);
 int				ray_casting(t_s *s);
 void			draw_map(t_s *s);
 void			draw_wall(int x, int start, int end, t_s *s);
-void			ft_sprite(t_s *s);
+void			ft_sprite(t_s *s, int a);
 int				ft_error(char *str);
 void			save_bmp_file(t_s *s);
 void			ray_casting2(t_s *s, int a, int x);
 void			ray_casting3(t_s *s, int a, int x);
 void			ray_casting_init(t_s *s, int x);
+void			ft_free(char *s);
+void			ft_parse_map2(t_s *s, int *sp, int a, int i);
+void			ft_parse_param2(t_s *s, int i);
+void			ft_parse_param3(t_s *s, int i);
+void			ft_parse_param4(t_s *s, int i);
 
 #endif

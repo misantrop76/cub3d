@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <mminet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 18:18:35 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/17 18:32:54 by mminet           ###   ########.fr       */
+/*   Created: 2020/02/18 21:06:48 by mminet            #+#    #+#             */
+/*   Updated: 2020/02/18 21:47:14 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_free(char *s)
+{
+	if (s)
+	{
+		free(s);
+		s = NULL;
+	}
+}
 
 int		ft_init(t_s *s)
 {
@@ -21,15 +30,16 @@ int		ft_init(t_s *s)
 		s->mapsize = s->winy / 5;
 	s->mlx_ptr = mlx_init();
 	s->win_ptr = mlx_new_window(s->mlx_ptr, s->winx, s->winy, "cub3d");
-	if (s->tex[0].path[0] == '\0')
+	if (s->tex[0].path == NULL)
 		s->i++;
 	while (s->i < 6)
 	{
 		if (!(s->tex[s->i].img = mlx_xpm_file_to_image(s->mlx_ptr,
 		s->tex[s->i].path, &s->tex[s->i].texx, &s->tex[s->i].texy)))
-			return (ft_error(s->tex[s->i].path));
+			return (ft_error(ft_strjoin("Can't open : ", s->tex[s->i].path)));
 		s->tex[s->i].data = (int *)mlx_get_data_addr(s->tex[s->i].img,
 		&s->tex[s->i].bpp, &s->tex[s->i].size_l, &s->tex[s->i].endian);
+		ft_free(s->tex[s->i].path);
 		s->i++;
 	}
 	s->i = 0;
@@ -101,17 +111,16 @@ int		main(int ac, char **av)
 	if (ft_strncmp(av[1] + (ft_strlen(av[1]) - 4), ".cub", 5))
 		ft_error("usage");
 	s.nb_sprite = 0;
-	if (!(ft_parse(av[1], &s)))
-		return (0);
+	ft_parse(av[1], &s);
 	ft_get_dir(&s);
 	if (!ft_init(&s))
 		return (0);
+	if (ac == 3)
+		save_bmp_file(&s);
+	ray_casting(&s);
 	mlx_hook(s.win_ptr, 17, 0, ft_error, "");
 	mlx_hook(s.win_ptr, 2, 0, key, &s);
 	mlx_hook(s.win_ptr, 3, 0, key_release, &s);
-	ray_casting(&s);
-	if (ac == 3)
-		save_bmp_file(&s);
 	mlx_loop_hook(s.mlx_ptr, move, &s);
 	mlx_loop(s.mlx_ptr);
 	return (0);

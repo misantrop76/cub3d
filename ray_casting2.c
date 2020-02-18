@@ -1,23 +1,25 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ray_cating2.c                                    .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/02/13 15:48:04 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 15:58:00 by mminet      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_casting2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/18 21:08:00 by mminet            #+#    #+#             */
+/*   Updated: 2020/02/18 21:50:32 by mminet           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void	ray_casting3(t_s *s, int a, int x)
 {
+	int i;
+
+	i = -1;
 	x = 0;
 	a = 0;
-	ft_sprite(&*s);
+	ft_sprite(&*s, i);
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img.img_ptr, 0, 0);
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img.map_ptr, 0, 0);
 	a = -1;

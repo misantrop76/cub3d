@@ -1,14 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   sprite.c                                         .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/27 17:06:37 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2020/02/13 16:15:44 by mminet      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/18 21:08:16 by mminet            #+#    #+#             */
+/*   Updated: 2020/02/18 21:18:00 by mminet           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
@@ -70,12 +69,10 @@ int		*ft_sort(t_s *s)
 	return (sort);
 }
 
-void	ft_sprite(t_s *s)
+void	ft_sprite(t_s *s, int a)
 {
-	int a;
 	int *sort;
 
-	a = -1;
 	while (++a < s->nb_sprite)
 	{
 		s->sprite[a].xx = s->sprite[a].x - s->posx;
@@ -97,4 +94,5 @@ void	ft_sprite(t_s *s)
 	while (++a < s->nb_sprite)
 		if (s->sprite[sort[a]].spritex)
 			ft_draw_sprite(&*s, sort[a]);
+	free(sort);
 }
