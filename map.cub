@@ -1,18 +1,19 @@
-NO textures/redbrick.xpm
 
-EA textures/stone.xpm
+NO textures/mur_mario.xpm
 
-WE textures/wood.xpm
+EA textures/mur_mario.xpm
 
-SO textures/mossy.xpm
+WE textures/mur_mario.xpm
 
-F 250 0 0
+SO textures/mur_mario.xpm
+
+F 0 0 0
 
 R 1000 750
 
 C textures/sky2.xpm
 
-S textures/barrel.xpm
+S textures/flower.xpm
 
 1111111111111111
 1000000110101001
@@ -38,8 +39,8 @@ S textures/barrel.xpm
 1011000000000001
 1011011111111111
 1010011100000001
-1110000000000001
-10002000000S0001
+1110000000N00001
+1000200000000001
 1000000020000001
 1000000000000001
 1111111111111111

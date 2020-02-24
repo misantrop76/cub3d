@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:51 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:48:56 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/24 14:28:20 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int		ray_casting(t_s *s)
 	a = 0;
 	while (a < s->nb_sprite)
 		s->sprite[a++].spritex = 0;
-	ray_casting2(s, a, x);
+	ray_casting2(s, x);
 	ray_casting3(s, a, x);
 	return (0);
 }

@@ -1,16 +1,30 @@
+EA textures/mur_mario.xpm
+
+NO textures/mur_mario.xpm
+
+WE textures/mur_mario.xpm
+
+SO textures/mur_mario.xpm
+
+F 0 0 0
+
 R 1000 750
 
-NO textures/wood.xpm
-EA textures/redbrick.xpm
-WE textures/redbrick.xpm
-SO textures/wood.xpm
+C textures/sky2.xpm
 
-F 50 50 50
-C textures/sky.xpm
-S textures/barrel.xpm
+S textures/flower.xpm
 
-11111
-10001
-12021
-100N1
-11111
+11111111
+12222201
+12222201
+12222201
+12222201
+12222201
+12222201
+12222201
+10000001
+10000001
+10000001
+10000001
+1000N001
+11111111

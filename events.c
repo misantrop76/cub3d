@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:08 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:07:13 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/24 14:12:09 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		key_release(int key, t_s *s)
 int		key(int key, t_s *s)
 {
 	if (key == 53)
-		ft_error("");
+		ft_exit("", s);
 	if (key == 13)
 		s->move_up = 1;
 	else if (key == 1)

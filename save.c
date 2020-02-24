@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:08:08 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:08:12 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/24 14:51:40 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,5 @@ void		save_bmp_file(t_s *s)
 	imgbmp(s, &bmp);
 	free(bmp.img);
 	close(bmp.fd);
-	ft_error("");
+	ft_exit("save", s);
 }

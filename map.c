@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 15:41:12 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:07:22 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/24 14:27:58 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	middle_point(t_s *s)
 	int y;
 	int size;
 
-	size = s->mapsize / 30;
+	size = s->mapsize / 50;
 	x = (s->mapsize / 2) - (size / 2);
 	y = (s->mapsize / 2) - (size / 2);
 	while (y < ((s->mapsize / 2) - (size / 2)) + size)

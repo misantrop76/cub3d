@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:08:00 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:50:32 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/24 14:28:12 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ray_casting3(t_s *s, int a, int x)
 	}
 }
 
-void	ray_casting2(t_s *s, int a, int x)
+void	ray_casting2(t_s *s, int x)
 {
 	if (s->turn_right == 1)
 		s->mvback += 50;

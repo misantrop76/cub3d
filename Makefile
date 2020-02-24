@@ -6,7 +6,7 @@
 #    By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2020/02/18 15:43:22 by mminet       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/18 22:04:02 by mminet      ###    #+. /#+    ###.fr      #
+#    Updated: 2020/02/19 22:32:47 by mminet      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,8 +17,8 @@ LIBFT = ./libft/libft.a
 LIBFT_SRC := $(wildcard libft/*.c)
 LIBFT_OBJ := $(patsubst libft/%.c, libft/%.o, $(LIBFT_SRC))
 
-FLAGS = gcc -g3
-INCLUDES = -Wall -Werror -Wextra -L mlx/ -lmlx -framework OpenGL -framework AppKit
+FLAGS = gcc -Wall -Wextra -Werror
+INCLUDES = -L mlx/ -lmlx -framework OpenGL -framework AppKit
 HEADERS = cub3d.h
 
 SRC := $(wildcard *.c)
@@ -40,11 +40,11 @@ $(LIBFT): $(LIBFT_OBJ)
 	ar rcs $(LIBFT) $(LIBFT_OBJ)
 
 libft/%.o: libft/%.c
-	$(FLAGS) -Iincludes -c $< -o $@
+	$(FLAGS) -c $< -o $@
 
 obj/%.o: %.c
 	mkdir -p obj
-	$(FLAGS) -Iincludes -c $< -o $@
+	$(FLAGS) -c $< -o $@
 
 run: $(NAME)
 	@echo "\n==> Running Cub3d"

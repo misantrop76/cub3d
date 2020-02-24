@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:08:56 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:55:23 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/24 17:32:37 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,16 +149,15 @@ typedef struct	s_s
 int				get_next_line(int fd, char **line);
 void			ft_parse(char *av, t_s *s);
 int				key_release(int key, t_s *s);
-int				ft_exit(void);
 int				key(int key, t_s *s);
 int				move(t_s *s);
 int				ray_casting(t_s *s);
 void			draw_map(t_s *s);
 void			draw_wall(int x, int start, int end, t_s *s);
 void			ft_sprite(t_s *s, int a);
-int				ft_error(char *str);
+int				ft_exit(char *str, t_s *s);
 void			save_bmp_file(t_s *s);
-void			ray_casting2(t_s *s, int a, int x);
+void			ray_casting2(t_s *s, int x);
 void			ray_casting3(t_s *s, int a, int x);
 void			ray_casting_init(t_s *s, int x);
 void			ft_free(char *s);
@@ -166,5 +165,7 @@ void			ft_parse_map2(t_s *s, int *sp, int a, int i);
 void			ft_parse_param2(t_s *s, int i);
 void			ft_parse_param3(t_s *s, int i);
 void			ft_parse_param4(t_s *s, int i);
+int				ft_error(t_s *s);
+int				jump_space(char *str, int j, int t, t_s *s);
 
 #endif

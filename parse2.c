@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:41 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:54:53 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/24 17:35:08 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,15 @@ int		ft_get_color(char *str, t_s *s)
 	r = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
-	while (!ft_isdigit(str[i]) && str[i])
+	while (str[i] == ' ')
 		i++;
 	g = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
-	while (!ft_isdigit(str[i]) && str[i])
-		i++;
-	if (!ft_isdigit(str[i]))
-		ft_error("ERROR WITH COLORS");
+	jump_space(str, i, 1, s);
 	b = ft_atoi(str + i);
 	if (r > 255 || g > 255 || b > 255)
-		ft_error("ERROR WITH COLORS");
+		ft_exit("ERROR WITH COLORS", s);
 	i = r * 65536 + g * 256 + b;
 	return (i);
 }
@@ -66,7 +63,7 @@ void	ft_parse_map2(t_s *s, int *sp, int a, int i)
 			s->posy = (double)i + 0.5;
 		}
 		else
-			ft_error("map");
+			ft_exit("map", s);
 	}
 }
 
@@ -76,9 +73,9 @@ void	ft_parse_param2(t_s *s, int i)
 	{
 		i += 2;
 		s->winx = ft_atoi(s->str[s->i] + i);
-		while (ft_isdigit(s->str[s->i][i]))
-			i++;
+		i = jump_space(s->str[s->i], i, 0, s);
 		s->winy = ft_atoi(s->str[s->i] + i);
+		jump_space(s->str[s->i], i, 1, s);
 		s->r++;
 	}
 	if (s->str[s->i][0] == 'N' && s->str[s->i][1] == 'O')
@@ -147,6 +144,6 @@ void	ft_parse_param4(t_s *s, int i)
 		s->f++;
 	}
 	if (!strchr("NSWECRF", s->str[s->i][0]) && s->str[s->i][0] != '\0')
-		ft_error("param");
+		ft_exit("param", s);
 	s->i++;
 }
