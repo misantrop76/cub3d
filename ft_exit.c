@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:06:00 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/24 17:32:42 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/28 18:14:18 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		ft_error(t_s *s)
 
 int		jump_space(char *str, int j, int t, t_s *s)
 {
-	while (str[j] == ' ')
+	while (!(ft_isdigit(str[j])))
 		j++;
 	while (ft_isdigit(str[j]))
 		j++;

@@ -1,14 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   libft.h                                          .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mminet <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/16 17:52:48 by mminet       #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/06 15:41:51 by mminet      ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/16 17:52:48 by mminet            #+#    #+#             */
+/*   Updated: 2020/02/28 16:20:21 by mminet           ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
@@ -67,5 +66,6 @@ void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *)
 				, void (*del)(void *));
+char			*ft_strcut(char *str, char *set);
 
 #endif

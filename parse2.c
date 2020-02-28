@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:41 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/24 17:35:08 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/28 18:07:44 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,20 @@ int		ft_get_color(char *str, t_s *s)
 	int b;
 
 	i = 0;
-	while (str[i] == ' ')
+	while (ft_strchr(" .,", str[i]))
 		i++;
 	r = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
-	while (str[i] == ' ')
+	while (ft_strchr(" .,", str[i]))
 		i++;
 	g = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
-	jump_space(str, i, 1, s);
+	while (ft_strchr(" .,", str[i]))
+		i++;
 	b = ft_atoi(str + i);
+	jump_space(str, i, 1, s);
 	if (r > 255 || g > 255 || b > 255)
 		ft_exit("ERROR WITH COLORS", s);
 	i = r * 65536 + g * 256 + b;
@@ -108,7 +110,7 @@ void	ft_parse_param3(t_s *s, int i)
 	}
 	else if (s->str[s->i][0] == 'S')
 	{
-		i += 2;
+		i += 1;
 		while (s->str[s->i][i] == ' ')
 			i++;
 		s->tex[5].path = ft_strdup(s->str[s->i] + i);

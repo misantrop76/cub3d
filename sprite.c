@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:08:16 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:18:00 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/25 20:02:06 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int		ft_draw_sprite(t_s *s, int id)
 		x = -1;
 		while (++x < s->sprite[id].size)
 		{
-			if (s->sprite[id].test[x + a] == 1 && (x + a) < s->winx && (x + a)
-			> 0 && (y + b) < s->winy && s->tex[5].data[(int)((double)s->tex[5].
-			texy / (double)s->sprite[id].size * (double)y) * s->tex[5].texx +
-			(int)((double)s->tex[5].texx / (double)s->sprite[id].size *
-			(double)x)] > 0)
+			if (a + x >= 0 && a + x <= s->winx && s->sprite[id].test[x + a] == 1
+			&& (x + a) < s->winx && (x + a) > 0 && (y + b) < s->winy &&
+			s->tex[5].data[(int)((double)s->tex[5].texy / (double)s->sprite[id].
+			size * (double)y) * s->tex[5].texx + (int)((double)s->tex[5].texx
+			/ (double)s->sprite[id].size * (double)x)] > 0)
 				s->img.data[(b + y) * s->winx + x + a] = s->tex[5].data[(int)
 				((double)s->tex[5].texy / (double)s->sprite[id].size * (double)
 				y) * s->tex[5].texx + (int)((double)s->tex[5].texx / (double)

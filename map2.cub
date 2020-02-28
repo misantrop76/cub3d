@@ -4,7 +4,7 @@ NO textures/mur_mario.xpm
 
 WE textures/mur_mario.xpm
 
-SO textures/mur_mario.xpm
+SO textures/barrel.xpm 
 
 F 0 0 0
 
@@ -13,18 +13,3 @@ R 1000 750
 C textures/sky2.xpm
 
 S textures/flower.xpm
-
-11111111
-12222201
-12222201
-12222201
-12222201
-12222201
-12222201
-12222201
-10000001
-10000001
-10000001
-10000001
-1000N001
-11111111

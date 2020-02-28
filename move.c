@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 15:41:26 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:07:25 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/25 20:18:08 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int		move(t_s *s)
 {
 	if (s->move_up == 1)
 	{
-		if (s->map[(int)(s->posy)][(int)(s->posx + s->dirx * s->ms * 1.5)] == 0)
+		if (s->map[(int)(s->posy)][(int)(s->posx + s->dirx * s->ms * 1.6)] == 0)
 			s->posx += s->dirx * s->ms;
-		if (s->map[(int)(s->posy + s->diry * s->ms * 1.5)][(int)(s->posx)] == 0)
+		if (s->map[(int)(s->posy + s->diry * s->ms * 1.6)][(int)(s->posx)] == 0)
 			s->posy += s->diry * s->ms;
 	}
 	if (s->move_down == 1)

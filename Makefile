@@ -1,15 +1,15 @@
 # **************************************************************************** #
-#                                                           LE - /             #
-#                                                               /              #
-#    Makefile                                         .::    .:/ .      .::    #
-#                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mminet <mminet@student.le-101.fr>          +:+   +:    +:    +:+      #
-#                                                  #+#   #+    #+    #+#       #
-#    Created: 2020/02/18 15:43:22 by mminet       #+#   ##    ##    #+#        #
-#    Updated: 2020/02/19 22:32:47 by mminet      ###    #+. /#+    ###.fr      #
-#                                                          /                   #
-#                                                         /                    #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/02/18 15:43:22 by mminet            #+#    #+#              #
+#    Updated: 2020/02/25 21:12:01 by mminet           ###   ########lyon.fr    #
+#                                                                              #
 # **************************************************************************** #
+
 
 NAME = Cub3D
 
@@ -62,8 +62,8 @@ norme:
 	norminette *.c *.h
 
 clean:
-	rm -rf libft/*.o obj/* mlx/*.o
-	rm -rf screenshot.bmp
+	rm -rf libft/*.o obj
+	rm -rf img.bmp
 
 fclean: clean
 	rm -rf $(NAME) *.dSYM $(LIBFT)

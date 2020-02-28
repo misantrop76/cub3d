@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:06:48 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/24 14:17:07 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/25 20:28:58 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free(char *s)
 
 int		ft_init(t_s *s)
 {
-	s->ms = 0.1;
+	s->ms = 0.0999;
 	s->rs = 0.07;
 	s->mapsize = s->winx / 5;
 	if (s->winx > s->winy)

@@ -6,11 +6,12 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:31 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/24 17:40:44 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/02/28 18:23:30 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 int		get_nbr_line(char *av, t_s *s)
 {
@@ -97,7 +98,7 @@ void	ft_parse_param(t_s *s)
 	int i;
 
 	s->i = 0;
-	while (!ft_isdigit(s->str[s->i][0]) && s->str[s->i] != 0)
+	while (s->str[s->i] != 0 && (!ft_isdigit(s->str[s->i][0])))
 	{
 		i = 0;
 		ft_parse_param2(s, i);
@@ -111,7 +112,7 @@ void	ft_parse_param(t_s *s)
 	if (s->so != 1 || s->we != 1 || s->no != 1 || s->ea != 1 || s->s != 1
 	|| s->r != 1 || s->c != 1 || s->f != 1 || s->winx <= 0 || s->winy <= 0)
 		ft_exit("param", s);
-	if (ft_isdigit(s->str[s->i][0]))
+	if (s->str[s->i] != 0 && ft_isdigit(s->str[s->i][0]))
 		ft_parse_map(&*s, s->i);
 	if (s->d != 1)
 		ft_exit("map", s);
@@ -131,10 +132,14 @@ void	ft_parse(char *av, t_s *s)
 		ft_exit("USAGE", s);
 	while (get_next_line(fd, &line))
 	{
-		s->str[i] = ft_strdup(line);
+		if (ft_isdigit(*ft_strcut(line, " ")))
+			s->str[i] = ft_strcut(line, " ");
+		else
+			s->str[i] = ft_strdup(line);
 		ft_free(line);
 		i++;
 	}
+	s->str[i] = 0;
 	ft_free(line);
 	close(fd);
 	ft_parse_param(&*s);
