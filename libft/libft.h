@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 17:52:48 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/28 16:20:21 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/05 18:24:43 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t			ft_strlcpy(char *dst, const char *src, size_t maxlen);
 size_t			ft_strlcat(char *dst, const char *src, size_t maxlen);
 char			*ft_strnstr(const char *str, const char *to_find, size_t n);
-int				ft_atoi(const char *nptr);
+int				ft_atoi(const char *str);
 void			*ft_calloc(size_t nmemb, size_t size);
 char			*ft_strdup(const char *src);
 t_list			*ft_lstnew(void *content);
@@ -66,6 +66,6 @@ void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *)
 				, void (*del)(void *));
-char			*ft_strcut(char *str, char *set);
+char			*ft_strcut(char *str);
 
 #endif

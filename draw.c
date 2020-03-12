@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mminet <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:06:58 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/18 21:53:49 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 20:53:09 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_line(t_s *s, int a)
+{
+	int i;
+
+	if (a - 1 >= 0 && ft_strlen(s->str[a]) > ft_strlen(s->str[a - 1]))
+	{
+		i = ft_strlen(s->str[a - 1]);
+		while (s->str[a][i])
+		{
+			if (s->str[a][i] != '1')
+				ft_exit("map", s);
+			i++;
+		}
+	}
+	if (s->str[a + 1] && ft_strlen(s->str[a]) > ft_strlen(s->str[a + 1]))
+	{
+		i = ft_strlen(s->str[a + 1]);
+		while (s->str[a][i])
+		{
+			if (s->str[a][i] != '1')
+				ft_exit("map", s);
+			i++;
+		}
+	}
+}
 
 int		draw_wall_init(t_s *s)
 {

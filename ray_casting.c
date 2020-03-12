@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:51 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/25 20:36:09 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/04 19:30:39 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_dist_init(t_s *s)
 
 void	get_dist2(t_s *s, int a, int x)
 {
-	if (s->map[s->y_map][s->x_map] == 2)
+	if (s->map[s->y_map][s->x_map] == '2')
 	{
 		while (++a < s->nb_sprite)
 			if ((int)(s->sprite[a].x - 0.5) == s->x_map && (int)(s->sprite
@@ -72,7 +72,7 @@ void	get_dist(t_s *s, int x)
 			s->y_map += s->y_step;
 			s->side = 1;
 		}
-		if (s->map[s->y_map][s->x_map] == 1)
+		if (s->map[s->y_map][s->x_map] == '1')
 			s->hit = 1;
 		a = -1;
 		get_dist2(s, a, x);

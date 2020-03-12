@@ -6,11 +6,23 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 15:41:26 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/25 20:18:08 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 21:01:11 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		ismap(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (ft_isdigit(str[i]))
+		return (1);
+	return (0);
+}
 
 void	move_side(t_s *s)
 {
@@ -44,19 +56,19 @@ void	move2(t_s *s)
 	if (s->move_right == 1)
 	{
 		if (s->map[(int)(s->posy)][(int)(s->posx + vx * s->ms * 1.5)]
-		== 0)
+		== '0')
 			s->posx += vx * s->ms;
 		if (s->map[(int)(s->posy + vy * s->ms * 1.5)][(int)(s->posx)]
-		== 0)
+		== '0')
 			s->posy += vy * s->ms;
 	}
 	if (s->move_left == 1)
 	{
 		if (s->map[(int)(s->posy)][(int)(s->posx - vx * s->ms * 1.5)]
-		== 0)
+		== '0')
 			s->posx -= vx * s->ms;
 		if (s->map[(int)(s->posy - vy * s->ms * 1.5)][(int)(s->posx)]
-		== 0)
+		== '0')
 			s->posy -= vy * s->ms;
 	}
 }
@@ -65,16 +77,20 @@ int		move(t_s *s)
 {
 	if (s->move_up == 1)
 	{
-		if (s->map[(int)(s->posy)][(int)(s->posx + s->dirx * s->ms * 1.6)] == 0)
+		if (s->map[(int)(s->posy)]
+		[(int)(s->posx + s->dirx * s->ms * 1.6)] == '0')
 			s->posx += s->dirx * s->ms;
-		if (s->map[(int)(s->posy + s->diry * s->ms * 1.6)][(int)(s->posx)] == 0)
+		if (s->map[(int)(s->posy + s->diry * s->ms * 1.6)]
+		[(int)(s->posx)] == '0')
 			s->posy += s->diry * s->ms;
 	}
 	if (s->move_down == 1)
 	{
-		if (s->map[(int)(s->posy)][(int)(s->posx - s->dirx * s->ms * 1.5)] == 0)
+		if (s->map[(int)(s->posy)]
+		[(int)(s->posx - s->dirx * s->ms * 1.5)] == '0')
 			s->posx -= s->dirx * s->ms;
-		if (s->map[(int)(s->posy - s->diry * s->ms * 1.5)][(int)(s->posx)] == 0)
+		if (s->map[(int)(s->posy - s->diry * s->ms * 1.5)]
+		[(int)(s->posx)] == '0')
 			s->posy -= s->diry * s->ms;
 	}
 	move2(&*s);

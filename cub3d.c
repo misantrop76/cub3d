@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:06:48 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/25 20:28:58 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 16:05:28 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ int		main(int ac, char **av)
 {
 	t_s		s;
 
-	if (ac < 2 || ac > 3 || (ac == 3 && strncmp(av[2], "-save", 6) != 0))
+	if (ac < 2 || ac > 3 || (ac == 3 && strncmp(av[2], "--save", 7) != 0))
 		ft_exit("usage", &s);
 	if (ft_strncmp(av[1] + (ft_strlen(av[1]) - 4), ".cub", 5))
 		ft_exit("usage", &s);
-	s.nb_sprite = 0;
 	ft_parse(av[1], &s);
 	ft_get_dir(&s);
+	s.i = 0;
 	if (!ft_init(&s))
 		return (0);
 	ray_casting(&s);

@@ -6,32 +6,32 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 13:42:03 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/28 16:04:18 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/05 17:25:40 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *nptr)
+int		ft_atoi(const char *str)
 {
 	int			i;
 	int			signe;
 	long long	nb;
 
 	i = 0;
-	while ((nptr[i] >= 9 && nptr[i] <= 13) || (nptr[i] == ' '))
+	while (str[i] == ' ')
 		i++;
 	signe = 1;
-	if (nptr[i] == '-' || nptr[i] == '+')
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (nptr[i] == '-')
+		if (str[i] == '-')
 			signe *= -1;
 		i++;
 	}
 	nb = 0;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		nb = nb * 10 + (nptr[i] - 48);
+		nb = nb * 10 + (str[i] - 48);
 		i++;
 	}
 	return (nb * signe);

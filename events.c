@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:08 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/24 14:12:09 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/05 15:12:19 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		key_release(int key, t_s *s)
 	else if (key == 123)
 		s->turn_left = 0;
 	else if (key == 49)
-		s->ms = 0.1;
+		s->ms = 0.099;
 	return (0);
 }
 
@@ -48,6 +48,6 @@ int		key(int key, t_s *s)
 	else if (key == 123)
 		s->turn_left = 1;
 	else if (key == 49)
-		s->ms = 0.2;
+		s->ms = 0.199;
 	return (0);
 }

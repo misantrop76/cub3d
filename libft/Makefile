@@ -6,7 +6,7 @@
 #    By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 14:22:20 by mminet            #+#    #+#              #
-#    Updated: 2020/02/28 16:09:50 by mminet           ###   ########lyon.fr    #
+#    Updated: 2020/03/06 18:48:03 by mminet           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,11 +66,9 @@ OBJS = ${SRCS:.c=.o}
 
 NAME = libft.a
 
-CC = gcc
-
-FLAGS = -Wall -Wextra -Werror
-
 RM = rm -f
+
+CC = gcc -Wall -Wextra -Werror
 
 all: 		${NAME}
 
@@ -85,7 +83,7 @@ $(NAME):	${OBJS}
 			ranlib ${NAME}
 
 %.c%.o:
-			${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+			${CC} -c $< -o ${<:.c=.o}
 
 fclean: 	clean
 			${RM} ${NAME}

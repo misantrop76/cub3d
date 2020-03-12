@@ -6,34 +6,27 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 15:50:00 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/28 16:44:42 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/05 18:25:18 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-char	*ft_strcut(char *str, char *set)
+char	*ft_strcut(char *str)
 {
 	int		i;
-	int		j;
-	int		len;
 	char	*s;
 
 	i = 0;
-	len = 0;
-	while (str[i])
-		if (!(ft_strchr(set, str[i++])))
-			len++;
-	if (!(s = malloc(sizeof(char) * (len + 1))))
+	if (!(s = malloc(sizeof(char) * ft_strlen(str) + 1)))
 		return (0);
-	s[len] = '\0';
-	i = 0;
-	j = 0;
+	s[ft_strlen(str)] = '\0';
 	while (str[i])
 	{
-		if (!(strchr(set, str[i])))
-			s[j++] = str[i];
+		if (str[i] == ' ')
+			s[i] = '1';
+		else
+			s[i] = str[i];
 		i++;
 	}
 	return (s);

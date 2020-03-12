@@ -6,12 +6,11 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:31 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/28 18:23:30 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 21:01:22 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 int		get_nbr_line(char *av, t_s *s)
 {
@@ -45,20 +44,20 @@ void	get_map_info(t_s *s, int a)
 
 	i = 0;
 	j = 0;
-	s->mapx = ft_strlen(s->str[a]);
 	while (s->str[a][i])
 		if (s->str[a][i++] != '1')
 			ft_exit("map", s);
 	while ((s->mapy += 1) && s->str[++a] != 0)
 	{
-		i = 0;
-		if ((int)ft_strlen(s->str[a]) != s->mapx)
+		i = -1;
+		check_line(s, a);
+		if (s->str[a][0] != '1' || s->str[a][ft_strlen(s->str[a]) - 1] != '1')
 			ft_exit("map", s);
-		if (s->str[a][0] != '1' || s->str[a][s->mapx - 1] != '1')
-			ft_exit("map", s);
-		while (s->str[a][i])
-			if (s->str[a][i++] == '2')
+		while (s->str[a][++i])
+			if (s->str[a][i] == '2')
 				s->nb_sprite++;
+			else if (!(ft_strchr("120NSEW", s->str[a][i])))
+				ft_exit("map", s);
 	}
 	a--;
 	i = 0;
@@ -76,21 +75,21 @@ void	ft_parse_map(t_s *s, int a)
 	sp = 0;
 	i = 0;
 	j = 0;
-	s->i = 0;
 	get_map_info(&*s, a);
 	if (!(s->sprite = malloc(sizeof(t_sprite) * s->nb_sprite)))
 		ft_exit("", s);
-	if (!(s->map = malloc(sizeof(int *) * s->mapy)))
+	if (!(s->map = malloc(sizeof(char *) * s->mapy + 1)))
 		ft_exit("", s);
 	while (i < s->mapy)
 	{
-		if (!(s->map[i] = malloc(sizeof(int) * s->mapx)))
+		if (!(s->map[i] = malloc(sizeof(char) * ft_strlen(s->str[a + i]) + 1)))
 			ft_exit("", s);
 		i++;
 	}
 	i = -1;
 	while (++i < s->mapy)
 		ft_parse_map2(s, &sp, a++, i);
+	s->map[i] = 0;
 }
 
 void	ft_parse_param(t_s *s)
@@ -124,23 +123,20 @@ void	ft_parse(char *av, t_s *s)
 	char	*line;
 	int		i;
 
-	s->tex[0].path = NULL;
 	i = 0;
-	line = NULL;
 	get_nbr_line(av, &*s);
-	if (!(fd = open(av, O_RDONLY)))
-		ft_exit("USAGE", s);
+	fd = open(av, O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
-		if (ft_isdigit(*ft_strcut(line, " ")))
-			s->str[i] = ft_strcut(line, " ");
+		if (ismap(line))
+			s->str[i] = ft_strcut(line);
 		else
-			s->str[i] = ft_strdup(line);
+			s->str[i] = ft_strtrim(line, " ");
 		ft_free(line);
 		i++;
 	}
-	s->str[i] = 0;
 	ft_free(line);
+	s->str[i] = 0;
 	close(fd);
 	ft_parse_param(&*s);
 }

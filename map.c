@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 15:41:12 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/24 14:27:58 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 15:48:24 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	draw_map(t_s *s)
 		j = s->posx - 10.0;
 		while (x < s->mapsize)
 		{
-			if (i >= 0 && j >= 0 && (int)i < s->mapy &&
-			(int)j < s->mapx && s->map[(int)i][(int)j] != 0)
+			if (i >= 0 && j >= 0 && (int)i < s->mapy && j <
+			ft_strlen(s->map[(int)i]) && s->map[(int)i][(int)j] != '0')
 				s->img.mapdata[y * s->mapsize + x] =
-				16777215 / s->map[(int)i][(int)j];
+				0x0073CE / (s->map[(int)i][(int)j] - 48);
 			else
 				s->img.mapdata[y * s->mapsize + x] = 0;
 			j = j + (20.0 / s->mapsize);

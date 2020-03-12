@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:07:41 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/28 18:07:44 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/06 16:30:43 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ int		ft_get_color(char *str, t_s *s)
 	int b;
 
 	i = 0;
-	while (ft_strchr(" .,", str[i]))
+	while (ft_strchr(" ,", str[i]))
 		i++;
 	r = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
-	while (ft_strchr(" .,", str[i]))
+	while (ft_strchr(" ,", str[i]))
 		i++;
 	g = ft_atoi(str + i);
 	while (ft_isdigit(str[i]))
 		i++;
-	while (ft_strchr(" .,", str[i]))
+	while (ft_strchr(" ,", str[i]))
 		i++;
 	b = ft_atoi(str + i);
 	jump_space(str, i, 1, s);
-	if (r > 255 || g > 255 || b > 255)
+	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
 		ft_exit("ERROR WITH COLORS", s);
 	i = r * 65536 + g * 256 + b;
 	return (i);
@@ -45,11 +45,10 @@ void	ft_parse_map2(t_s *s, int *sp, int a, int i)
 	int j;
 
 	j = -1;
-	while (++j < s->mapx)
-	{
+	while (++j < (int)ft_strlen(s->str[a]))
 		if (s->str[a][j] >= '0' && s->str[a][j] <= '2')
 		{
-			s->map[i][j] = s->str[a][j] - 48;
+			s->map[i][j] = s->str[a][j];
 			if (s->str[a][j] == '2')
 			{
 				s->sprite[*sp].x = (double)j + 0.5;
@@ -60,13 +59,13 @@ void	ft_parse_map2(t_s *s, int *sp, int a, int i)
 		else if (strchr("NWES", s->str[a][j]) && (s->d += 1) &&
 		(s->bdir = s->str[a][j]))
 		{
-			s->map[i][j] = 0;
+			s->map[i][j] = '0';
 			s->posx = (double)j + 0.5;
 			s->posy = (double)i + 0.5;
 		}
 		else
 			ft_exit("map", s);
-	}
+	s->map[i][j] = '\0';
 }
 
 void	ft_parse_param2(t_s *s, int i)

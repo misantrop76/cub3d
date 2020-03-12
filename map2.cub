@@ -1,15 +1,18 @@
-EA textures/mur_mario.xpm
-
-NO textures/mur_mario.xpm
-
-WE textures/mur_mario.xpm
-
-SO textures/barrel.xpm 
-
-F 0 0 0
-
 R 1000 750
 
-C textures/sky2.xpm
+NO textures/mur_mario.xpm
+EA textures/mur_mario.xpm
+WE textures/mur_mario.xpm
+SO textures/mur_mario.xpm
+
+F 20 100 20
+
+C 50 50 50
 
 S textures/flower.xpm
+
+111111
+100001
+100021
+1N00011
+111111

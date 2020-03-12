@@ -6,7 +6,7 @@
 /*   By: mminet <mminet@student.le-101.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:08:56 by mminet            #+#    #+#             */
-/*   Updated: 2020/02/25 19:26:37 by mminet           ###   ########lyon.fr   */
+/*   Updated: 2020/03/10 21:01:35 by mminet           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct	s_s
 	double				ms;
 	double				rs;
 	int					bdir;
-	int					**map;
+	char				**map;
 	int					i;
 	int					winx;
 	int					winy;
@@ -167,5 +167,7 @@ void			ft_parse_param3(t_s *s, int i);
 void			ft_parse_param4(t_s *s, int i);
 int				ft_error(t_s *s);
 int				jump_space(char *str, int j, int t, t_s *s);
+void			check_line(t_s *s, int a);
+int				ismap(char *str);
 
 #endif
